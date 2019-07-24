@@ -29,41 +29,30 @@ DISABLE_MANUAL = 0x30
 RESET = 0xFF
 
 
-def raise_if_out_of_bounds(data):
-    if data < 0 or 1023 < data:
-        raise ValueError('data out of bounds, command not send')
+# def raise_if_out_of_bounds(data):
+#     if data < 0 or 1023 < data:
+#         raise ValueError('data out of bounds, command not send')
 
 
 class Lac(object):
 
-    def __init__(self, dev):
-       self.dev = dev
+    def __init__(self):
+        self.dev = usb.core.find(idVendor=0x04d8, idProduct=0xfc5f)
+        self.dev.set_configuration()
 
-    @classmethod
-    def open(cls, bus=None, device=None):
-        # open the microchip device and set default config
-	dev = usb.core.find(idVendor=0x04d8, idProduct=0xfc5f)
-	if dev is None:
-	    raise Exception('No LAC board found, please make sure the board is plugged in and powered and try again')
-        # TODO: Add a check for multiple Lac boards detected, implement bun ad device number to disambiguate
-
-	dev.set_configuration()
-        return cls (dev)
+    # def set_accuracy(self, request):
+    #     if check_bounds(request):
+    #         return self.write(SET_ACCURACY, request)
 
 
-    def set_accuracy(self, request):
-        if check_bounds(request):
-            return self.write(SET_ACCURACY, request)
+    # def set_retract_limit(self, request):
+    #     if check_bounds(request):
+    #         return self.write(SET_RETRACT_LIMIT, request)
 
 
-    def set_retract_limit(self, request):
-        if check_bounds(request):
-            return self.write(SET_RETRACT_LIMIT, request)
-
-
-    def set_extend_limit(self, request):
-        if check_bounds(request):
-            return self.write(SET_EXTEND_LIMIT, request)
+    # def set_extend_limit(self, request):
+    #     if check_bounds(request):
+    #         return self.write(SET_EXTEND_LIMIT, request)
 
 
     def get_feedback(self):
@@ -71,13 +60,13 @@ class Lac(object):
 
 
     def set_position(self, request):
-        if check_bounds(request):
-            return self.write(SET_POSITION, request)
+        # if check_bounds(request):
+        return self.write(SET_POSITION, request)
 
 
     def set_speed(self, request):
-        if check_bounds(request):
-            return self.write(SET_SPEED, request)
+        # if check_bounds(request):
+        return self.write(SET_SPEED, request)
 
 
     def reset(self):
