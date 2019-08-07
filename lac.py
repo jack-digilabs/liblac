@@ -38,6 +38,7 @@ class Lac(object):
 
     def __init__(self):
         self.dev = usb.core.find(idVendor=0x04d8, idProduct=0xfc5f)
+	self.dev.reset()
         self.dev.set_configuration()
 
     # def set_accuracy(self, request):
