@@ -29,9 +29,11 @@ DISABLE_MANUAL = 0x30
 RESET = 0xFF
 
 
-# def raise_if_out_of_bounds(data):
-#     if data < 0 or 1023 < data:
-#         raise ValueError('data out of bounds, command not send')
+def is_within_bounds(data):
+    if data < 0 or 1023 < data:
+        raise ValueError('data out of bounds, command not send')
+        return False
+    return True
 
 
 class Lac(object):
